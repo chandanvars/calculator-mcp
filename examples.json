@@ -1,0 +1,255 @@
+{
+  "examples": {
+    "initialization": {
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "1",
+        "method": "initialize",
+        "params": {}
+      },
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": "1",
+        "result": {
+          "protocolVersion": "2024-11-05",
+          "serverInfo": {
+            "name": "Calculator MCP Server",
+            "version": "1.0.0"
+          },
+          "capabilities": {
+            "tools": {}
+          }
+        }
+      }
+    },
+    "list_tools": {
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "2",
+        "method": "tools/list",
+        "params": {}
+      },
+      "description": "Returns list of available calculator tools"
+    },
+    "basic_calculation": {
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "3",
+        "method": "tools/call",
+        "params": {
+          "name": "calculate",
+          "arguments": {
+            "expression": "2 + 3 * 4"
+          }
+        }
+      },
+      "description": "Basic arithmetic expression"
+    },
+    "variable_operations": {
+      "set_variable": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "4",
+          "method": "tools/call",
+          "params": {
+            "name": "set_variable",
+            "arguments": {
+              "name": "x",
+              "value": 10
+            }
+          }
+        }
+      },
+      "use_variable": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "5",
+          "method": "tools/call",
+          "params": {
+            "name": "calculate",
+            "arguments": {
+              "expression": "$x * 2 + 5"
+            }
+          }
+        }
+      },
+      "list_variables": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "6",
+          "method": "tools/call",
+          "params": {
+            "name": "list_variables",
+            "arguments": {}
+          }
+        }
+      }
+    },
+    "memory_operations": {
+      "store_memory": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "7",
+          "method": "tools/call",
+          "params": {
+            "name": "memory_store",
+            "arguments": {
+              "value": 42
+            }
+          }
+        }
+      },
+      "use_memory": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "8",
+          "method": "tools/call",
+          "params": {
+            "name": "calculate",
+            "arguments": {
+              "expression": "$M / 2"
+            }
+          }
+        }
+      },
+      "recall_memory": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "9",
+          "method": "tools/call",
+          "params": {
+            "name": "memory_recall",
+            "arguments": {}
+          }
+        }
+      }
+    },
+    "advanced_calculations": {
+      "trigonometry": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "10",
+          "method": "tools/call",
+          "params": {
+            "name": "calculate",
+            "arguments": {
+              "expression": "sin(3.14159/2)"
+            }
+          }
+        }
+      },
+      "logarithms": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "11",
+          "method": "tools/call",
+          "params": {
+            "name": "calculate",
+            "arguments": {
+              "expression": "log(10)"
+            }
+          }
+        }
+      },
+      "power_and_sqrt": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "12",
+          "method": "tools/call",
+          "params": {
+            "name": "calculate",
+            "arguments": {
+              "expression": "sqrt(pow(3, 2) + pow(4, 2))"
+            }
+          }
+        }
+      }
+    },
+    "context_management": {
+      "get_history": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "13",
+          "method": "tools/call",
+          "params": {
+            "name": "get_history",
+            "arguments": {
+              "limit": 5
+            }
+          }
+        }
+      },
+      "get_context": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "14",
+          "method": "tools/call",
+          "params": {
+            "name": "get_context",
+            "arguments": {}
+          }
+        }
+      },
+      "reset_context": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "15",
+          "method": "tools/call",
+          "params": {
+            "name": "reset_context",
+            "arguments": {}
+          }
+        }
+      }
+    },
+    "error_handling": {
+      "division_by_zero": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "16",
+          "method": "tools/call",
+          "params": {
+            "name": "calculate",
+            "arguments": {
+              "expression": "5 / 0"
+            }
+          }
+        },
+        "description": "Should return calculation error"
+      },
+      "undefined_variable": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "17",
+          "method": "tools/call",
+          "params": {
+            "name": "calculate",
+            "arguments": {
+              "expression": "$undefined_var + 1"
+            }
+          }
+        },
+        "description": "Should return error for undefined variable"
+      },
+      "unknown_tool": {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "18",
+          "method": "tools/call",
+          "params": {
+            "name": "unknown_tool",
+            "arguments": {}
+          }
+        },
+        "description": "Should return tool not found error"
+      }
+    }
+  },
+  "usage_notes": {
+    "variable_references": "Use $varname to reference variables in expressions",
+    "memory_reference": "Use $M to reference memory in expressions",
+    "last_result": "Use $_ to reference the last calculation result",
+    "expression_syntax": "Supports standard mathematical expressions with functions like sin, cos, tan, log, sqrt, pow",
+    "error_handling": "All errors return proper JSON-RPC error responses with appropriate error codes"
+  }
+}
