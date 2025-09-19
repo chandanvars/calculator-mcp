@@ -175,7 +175,7 @@ public class CalculatorService {
     /**
      * Preprocess expression to substitute variables, memory, and last result
      */
-    private String preprocessExpression(String expression) {
+    private String preprocessExpression(String expression) throws CalculationException {
         String processed = expression;
         
         // Replace last result reference ($_)

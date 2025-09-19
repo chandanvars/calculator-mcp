@@ -20,7 +20,7 @@ class CalculatorServiceTest {
     }
     
     @Test
-    void testBasicArithmetic() {
+    void testBasicArithmetic() throws CalculatorService.CalculationException {
         assertEquals(5.0, calculatorService.add(2, 3));
         assertEquals(1.0, calculatorService.subtract(3, 2));
         assertEquals(6.0, calculatorService.multiply(2, 3));
