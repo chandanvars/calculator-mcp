@@ -111,4 +111,34 @@ class CalculatorServiceTest {
         assertFalse(calculatorService.hasUndefinedVariables("$x + 1"));
         assertTrue(calculatorService.hasUndefinedVariables("$y + 1"));
     }
+    
+    @Test
+    void testAverage() throws CalculatorService.CalculationException {
+        // Test with multiple values
+        assertEquals(3.0, calculatorService.average(1.0, 2.0, 3.0, 4.0, 5.0));
+        
+        // Test with two values
+        assertEquals(2.5, calculatorService.average(2.0, 3.0));
+        
+        // Test with single value
+        assertEquals(5.0, calculatorService.average(5.0));
+        
+        // Test with decimal values
+        assertEquals(2.25, calculatorService.average(1.5, 2.0, 3.5, 2.0));
+        
+        // Test with negative values
+        assertEquals(0.0, calculatorService.average(-2.0, 0.0, 2.0));
+    }
+    
+    @Test
+    void testAverageEmptyArray() {
+        assertThrows(CalculatorService.CalculationException.class, 
+            () -> calculatorService.average());
+    }
+    
+    @Test
+    void testAverageNullArray() {
+        assertThrows(CalculatorService.CalculationException.class, 
+            () -> calculatorService.average((double[]) null));
+    }
 }

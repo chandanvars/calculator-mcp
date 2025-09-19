@@ -173,6 +173,36 @@ public class CalculatorService {
     }
     
     /**
+     * Calculate the average of an array of numbers
+     */
+    public double average(double... values) throws CalculationException {
+        if (values == null) {
+            throw new CalculationException("Values array cannot be null");
+        }
+        if (values.length == 0) {
+            throw new CalculationException("Values array cannot be empty");
+        }
+        
+        double sum = 0;
+        for (double value : values) {
+            sum += value;
+        }
+        
+        double result = sum / values.length;
+        
+        // Create a readable expression for the history
+        StringBuilder expression = new StringBuilder("avg(");
+        for (int i = 0; i < values.length; i++) {
+            if (i > 0) expression.append(", ");
+            expression.append(values[i]);
+        }
+        expression.append(")");
+        
+        context.addToHistory("AVERAGE", expression.toString(), result);
+        return result;
+    }
+    
+    /**
      * Preprocess expression to substitute variables, memory, and last result
      */
     private String preprocessExpression(String expression) throws CalculationException {
